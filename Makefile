@@ -20,7 +20,7 @@ PROJECTNAME = kss160430Homework6
 
 OBJS = $(SRCS:cc=o)
 
-SRCS = homework6.cc
+SRCS = uhomework6.cc
 
 all: $(EXECFILE)
 

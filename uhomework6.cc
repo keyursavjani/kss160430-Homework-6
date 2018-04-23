@@ -10,7 +10,7 @@
 #define MATRIX_WIDTH 3
 #define MATRIX_HEIGHT 5
 #define BOX_WIDTH 15
-#define MATRIX_NAME_STRING "Test Matrix"
+#define MATRIX_NAME_STRING "Binary File Contents"
 
 using namespace std;
 
@@ -22,10 +22,18 @@ int main()
   CDKSCREEN*cdkscreen;
   CDKMATRIX     *myMatrix;           // CDK Screen Matrix
 
-  const char *rowTitles[MATRIX_HEIGHT+1] = {"R0", "R1", "R2", "R3"};
-  const char *columnTitles[MATRIX_WIDTH+1] = {"C0", "C1", "C2", "C3"};
-  int boxWidths[MATRIX_WIDTH+1] = {BOX_WIDTH, BOX_WIDTH, BOX_WIDTH, BOX_WIDTH};
-  int boxTypes[MATRIX_WIDTH+1] = {vMIXED, vMIXED, vMIXED, vMIXED};
+  // Remember that matrix starts out at 1,1.
+  // Since arrays start out at 0, the first entries
+  // below ("R0", and "C0") are just placeholders
+  // 
+  // Finally... make sure your arrays have enough entries given the
+  // values you choose to set for MATRIX_WIDTH and MATRIX_HEIGHT
+  // above.
+
+  const char *rowTitles[] = {"R0", "R1", "R2", "R3", "R4", "R5"};
+  const char *columnTitles[] = {"C0", "C1", "C2", "C3", "C4", "C5"};
+  int boxWidths[] = {BOX_WIDTH, BOX_WIDTH, BOX_WIDTH, BOX_WIDTH, BOX_WIDTH, BOX_WIDTH};
+  int boxTypes[] = {vMIXED, vMIXED, vMIXED, vMIXED,  vMIXED,  vMIXED};
 
   /*
    * Initialize the Cdk screen.
@@ -42,7 +50,7 @@ int main()
    * Create the matrix.  Need to manually cast (const char**) to (char **)
    */
   myMatrix = newCDKMatrix(cdkscreen, CENTER, CENTER, MATRIX_HEIGHT, MATRIX_WIDTH, MATRIX_HEIGHT, MATRIX_WIDTH,
-			  MATRIX_NAME_STRING, (char **) columnTitles, (char **) rowTitles, boxWidths,
+			  MATRIX_NAME_STRING, (char **) rowTitles, (char **) columnTitles, boxWidths,
 			  boxTypes, 1, 1, ' ', ROW, true, true, false);
 
   if (myMatrix ==NULL)
@@ -60,9 +68,9 @@ int main()
   setCDKMatrixCell(myMatrix, 2, 2, "Test Message");
   drawCDKMatrix(myMatrix, true);    /* required  */
 
-  /* so we can see results */
-  sleep (10);
-
+  /* So we can see results, pause until a key is pressed. */
+  unsigned char x;
+  cin >> x;
 
   // Cleanup screen
   endCDK();
